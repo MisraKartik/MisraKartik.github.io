@@ -3,431 +3,490 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John Doe | Developer & Creator</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
+    <title>My Portfolio</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --ft-salmon: #FFF1E5;
+            --ft-paper: #FFF9F5;
+            --ft-white: #FFFFFF;
+            --ft-black: #33302E;
+            --ft-teal: #0D7680;
+            --ft-claret: #990F3D;
+            --ft-grey: #807973;
+            --ft-border: #CCC1B7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #050505;
+            background: var(--ft-salmon);
+            color: var(--ft-black);
+            line-height: 1.6;
         }
 
-        /* Noise texture overlay */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.03;
-            pointer-events: none;
-            z-index: 50;
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            background: var(--ft-paper);
+            border-left: 1px solid var(--ft-border);
+            border-right: 1px solid var(--ft-border);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #404040; }
-
-        /* Tech grid background */
-        .tech-grid {
-            background-size: 40px 40px;
-            background-image: 
-                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
-            mask-image: linear-gradient(to bottom, transparent 5%, black 40%, black 70%, transparent 95%);
+        /* Hero Section */
+        .hero {
+            background: var(--ft-paper);
+            padding: 80px 40px 50px;
+            text-align: left;
+            border-bottom: 4px solid var(--ft-black);
+            position: relative;
         }
 
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        .hero-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--ft-salmon);
+            border: 2px solid var(--ft-black);
+            margin: 0 0 30px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+        .hero-avatar i {
+            font-size: 45px;
+            color: var(--ft-black);
         }
 
-        .float-animation {
-            animation: float 6s ease-in-out infinite;
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--ft-black);
+            margin-bottom: 12px;
+            line-height: 1.1;
+            letter-spacing: -1px;
         }
 
-        .glow-animation {
-            animation: pulse-glow 3s ease-in-out infinite;
+        .hero .tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            color: var(--ft-teal);
+            font-weight: 400;
+            margin-bottom: 15px;
         }
 
-        /* Gradient text */
-        .gradient-text {
-            background: linear-gradient(to bottom, #ffffff, #a3a3a3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: var(--ft-claret);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
         }
 
-        /* Glass card */
-        .glass-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
+        /* Section Styles */
+        .section {
+            padding: 50px 40px;
+            border-bottom: 1px solid var(--ft-border);
         }
 
-        /* Reveal animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ft-black);
+            margin-bottom: 5px;
         }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        .section-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: var(--ft-grey);
+            margin-bottom: 30px;
+            font-style: italic;
+            font-weight: 400;
         }
 
-        /* Hover lift */
-        .hover-lift {
-            transition: all 0.3s ease;
+        /* About Section */
+        .about-section {
+            background: var(--ft-paper);
         }
 
-        .hover-lift:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        .about-text-block {
+            margin-top: 20px;
+        }
+
+        .about-lead {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            line-height: 1.5;
+            color: var(--ft-black);
+            margin-bottom: 30px;
+            border-left: 3px solid var(--ft-teal);
+            padding-left: 20px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            border-top: 1px solid var(--ft-border);
+            padding-top: 30px;
+        }
+
+        .about-col h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: var(--ft-teal);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .about-col p {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            color: var(--ft-grey);
+            line-height: 1.6;
+        }
+
+        /* Achievements Section */
+        .achievements-section {
+            background: var(--ft-paper);
+        }
+
+        .achievements-list {
+            margin-bottom: 40px;
+        }
+
+        .achievement-item {
+            display: flex;
+            gap: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--ft-border);
+        }
+
+        .achievement-item:first-child {
+            border-top: 1px solid var(--ft-border);
+        }
+
+        .achievement-year {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ft-claret);
+            min-width: 70px;
+            padding-top: 3px;
+        }
+
+        .achievement-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: var(--ft-black);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .achievement-content p {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            color: var(--ft-grey);
+            line-height: 1.6;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            border-top: 1px solid var(--ft-border);
+            border-bottom: 1px solid var(--ft-border);
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            padding: 25px 15px;
+            text-align: center;
+            border-right: 1px solid var(--ft-border);
+        }
+
+        .stat-card:last-child {
+            border-right: none;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--ft-teal);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: var(--ft-grey);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Social Links Section */
+        .social-section {
+            background: var(--ft-black);
+            padding: 60px 40px 70px;
+            text-align: center;
+            border-bottom: none;
+        }
+
+        .social-section .section-title {
+            color: var(--ft-paper);
+        }
+
+        .social-section .section-subtitle {
+            color: rgba(255, 249, 245, 0.7);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 35px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 30px;
+            border-radius: 2px;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border: 1px solid var(--ft-paper);
+        }
+
+        .social-btn.github {
+            background: transparent;
+            color: var(--ft-paper);
+        }
+
+        .social-btn.linkedin {
+            background: var(--ft-teal);
+            color: var(--ft-paper);
+            border-color: var(--ft-teal);
+        }
+
+        .social-btn:hover {
+            opacity: 0.8;
+        }
+
+        .social-btn i {
+            font-size: 20px;
+        }
+
+        .social-note {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: rgba(255, 249, 245, 0.6);
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero {
+                padding: 60px 25px 40px;
+            }
+            
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero .tagline {
+                font-size: 18px;
+            }
+            
+            .section {
+                padding: 40px 25px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .achievement-item {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .achievement-year {
+                min-width: auto;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat-card {
+                border-bottom: 1px solid var(--ft-border);
+            }
+
+            .stat-card:nth-child(2n) {
+                border-right: none;
+            }
+
+            .stat-card:nth-last-child(-n+2) {
+                border-bottom: none;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-btn {
+                width: 100%;
+                justify-content: center;
+                max-width: 320px;
+            }
         }
     </style>
 </head>
-<body class="text-white min-h-screen">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 h-16 z-40 backdrop-blur-xl bg-[#050505]/80 border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
-            <a href="#" class="text-lg font-medium tracking-tight">
-                <span class="text-blue-400">●</span> John Doe
-            </a>
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#about" class="text-xs font-medium text-neutral-400 hover:text-white transition-colors duration-300">About</a>
-                <a href="#achievements" class="text-xs font-medium text-neutral-400 hover:text-white transition-colors duration-300">Achievements</a>
-                <a href="#contact" class="text-xs font-medium text-neutral-400 hover:text-white transition-colors duration-300">Contact</a>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-avatar">
+                <i class="material-icons">person</i>
             </div>
-            <div class="flex items-center gap-4">
-                <a href="https://linkedin.com" target="_blank" class="text-neutral-400 hover:text-white transition-colors duration-300">
-                    <iconify-icon icon="lucide:linkedin" width="20" height="20"></iconify-icon>
-                </a>
-                <a href="https://github.com" target="_blank" class="text-neutral-400 hover:text-white transition-colors duration-300">
-                    <iconify-icon icon="lucide:github" width="20" height="20"></iconify-icon>
-                </a>
-            </div>
-        </div>
-    </nav>
+            <p class="subtitle">Welcome to my portfolio</p>
+            <h1>Your Name</h1>
+            <p class="tagline">Creative Developer & Designer</p>
+        </section>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
-        <!-- Background Effects -->
-        <div class="absolute inset-0 tech-grid"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[100px] glow-animation"></div>
-        <div class="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-purple-500/5 rounded-full blur-[80px] float-animation"></div>
-        
-        <div class="relative z-10 text-center px-6">
-            <div class="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
-                </span>
-                <span class="text-xs text-neutral-400">Available for opportunities</span>
-            </div>
+        <!-- About Section -->
+        <section class="section about-section">
+            <h2 class="section-title">About</h2>
+            <p class="section-subtitle">A brief introduction</p>
             
-            <h1 class="text-5xl md:text-7xl font-medium tracking-tight leading-[1.1] gradient-text mb-6">
-                Developer &<br>Creator
-            </h1>
-            
-            <p class="text-lg md:text-xl text-neutral-400 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
-                Building digital experiences that blend beautiful design<br class="hidden md:block"> with powerful functionality.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#about" class="px-8 py-3 bg-white text-black text-sm font-medium rounded-full hover:bg-neutral-200 transition-colors duration-300">
-                    Learn More
-                </a>
-                <a href="#contact" class="px-8 py-3 border border-white/10 text-sm font-medium rounded-full hover:bg-white/5 transition-colors duration-300">
-                    Get in Touch
-                </a>
-            </div>
-
-            <!-- Scroll Indicator -->
-            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-neutral-500">
-                <span class="text-xs">Scroll</span>
-                <iconify-icon icon="lucide:chevron-down" width="20" class="animate-bounce"></iconify-icon>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-24 px-6 relative">
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal">
-                <span class="text-[10px] font-medium tracking-widest text-blue-400 uppercase">About Me</span>
-                <h2 class="text-3xl md:text-4xl font-medium tracking-tight mt-4 mb-16 gradient-text">
-                    Who I Am
-                </h2>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <!-- Image/Visual -->
-                <div class="reveal relative">
-                    <div class="aspect-square max-w-md mx-auto relative">
-                        <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 blur-2xl"></div>
-                        <div class="relative rounded-3xl overflow-hidden border border-white/10">
-                            <img 
-                                src="https://picsum.photos/seed/portrait2024/600/600.jpg" 
-                                alt="Profile" 
-                                class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                            >
-                        </div>
-                        <!-- Floating Badge -->
-                        <div class="absolute -bottom-4 -right-4 glass-card rounded-2xl px-6 py-4 float-animation">
-                            <div class="text-2xl font-medium">5+</div>
-                            <div class="text-xs text-neutral-400">Years Experience</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Content -->
-                <div class="reveal space-y-6">
-                    <p class="text-lg text-neutral-300 font-light leading-relaxed">
-                        I'm a passionate developer and designer based in San Francisco, dedicated to creating meaningful digital experiences. With a background in both technology and creative arts, I bring a unique perspective to every project.
-                    </p>
-                    <p class="text-neutral-400 font-light leading-relaxed">
-                        My journey began with a curiosity about how things work, which evolved into a career building products that make a difference. I specialize in full-stack development, with a particular love for crafting intuitive user interfaces and scalable backend systems.
-                    </p>
-                    <p class="text-neutral-400 font-light leading-relaxed">
-                        When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing knowledge through technical writing and mentorship.
-                    </p>
-
-                    <!-- Skills -->
-                    <div class="pt-8 border-t border-white/5">
-                        <div class="text-xs text-neutral-500 mb-4">Core Technologies</div>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-xs rounded-full glass-card text-neutral-300">JavaScript</span>
-                            <span class="px-3 py-1 text-xs rounded-full glass-card text-neutral-300">TypeScript</span>
-                            <span class="px-3 py-1 text-xs rounded-full glass-card text-neutral-300">React</span>
-                            <span class="px-3 py-1 text-xs rounded-full glass-card text-neutral-300">Node.js</span>
-                            <span class="px-3 py-1 text-xs rounded-full glass-card text-neutral-300">Python</span>
-                            <span class="px-3 py-1 text-xs rounded-full glass-card text-neutral-300">AWS</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Achievements Section -->
-    <section id="achievements" class="py-24 px-6 relative bg-[#0a0a0a]">
-        <div class="absolute inset-0 tech-grid opacity-50"></div>
-        
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="reveal text-center mb-16">
-                <span class="text-[10px] font-medium tracking-widest text-blue-400 uppercase">Achievements</span>
-                <h2 class="text-3xl md:text-4xl font-medium tracking-tight mt-4 gradient-text">
-                    Milestones & Recognition
-                </h2>
-            </div>
-
-            <!-- Stats -->
-            <div class="reveal grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-                <div class="glass-card rounded-2xl p-6 text-center hover-lift">
-                    <div class="text-3xl md:text-4xl font-medium bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">50+</div>
-                    <div class="text-xs text-neutral-400 mt-2">Projects Completed</div>
-                </div>
-                <div class="glass-card rounded-2xl p-6 text-center hover-lift">
-                    <div class="text-3xl md:text-4xl font-medium bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">30+</div>
-                    <div class="text-xs text-neutral-400 mt-2">Happy Clients</div>
-                </div>
-                <div class="glass-card rounded-2xl p-6 text-center hover-lift">
-                    <div class="text-3xl md:text-4xl font-medium bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">1M+</div>
-                    <div class="text-xs text-neutral-400 mt-2">Users Impacted</div>
-                </div>
-                <div class="glass-card rounded-2xl p-6 text-center hover-lift">
-                    <div class="text-3xl md:text-4xl font-medium bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">15+</div>
-                    <div class="text-xs text-neutral-400 mt-2">Awards Won</div>
-                </div>
-            </div>
-
-            <!-- Achievement Cards -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Achievement 1 -->
-                <div class="reveal glass-card rounded-2xl p-8 hover-lift group">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <iconify-icon icon="lucide:trophy" width="24" class="text-yellow-400"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-medium mb-2">Hackathon Winner</h3>
-                    <p class="text-sm text-neutral-400 font-light leading-relaxed">
-                        First place at TechCrunch Disrupt 2023 for building an AI-powered accessibility tool.
-                    </p>
-                    <div class="text-xs text-neutral-500 mt-4">2023</div>
-                </div>
-
-                <!-- Achievement 2 -->
-                <div class="reveal glass-card rounded-2xl p-8 hover-lift group">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <iconify-icon icon="lucide:star" width="24" class="text-blue-400"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-medium mb-2">Open Source Contributor</h3>
-                    <p class="text-sm text-neutral-400 font-light leading-relaxed">
-                        Over 2,000 GitHub stars across personal projects with contributions to major frameworks.
-                    </p>
-                    <div class="text-xs text-neutral-500 mt-4">Ongoing</div>
-                </div>
-
-                <!-- Achievement 3 -->
-                <div class="reveal glass-card rounded-2xl p-8 hover-lift group">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <iconify-icon icon="lucide:users" width="24" class="text-green-400"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-medium mb-2">Tech Speaker</h3>
-                    <p class="text-sm text-neutral-400 font-light leading-relaxed">
-                        Invited speaker at 10+ conferences including React Conf and NodeConf.
-                    </p>
-                    <div class="text-xs text-neutral-500 mt-4">2022 - Present</div>
-                </div>
-
-                <!-- Achievement 4 -->
-                <div class="reveal glass-card rounded-2xl p-8 hover-lift group">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <iconify-icon icon="lucide:book-open" width="24" class="text-purple-400"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-medium mb-2">Published Author</h3>
-                    <p class="text-sm text-neutral-400 font-light leading-relaxed">
-                        Technical articles published in Medium, Dev.to, and FreeCodeCamp with 100K+ reads.
-                    </p>
-                    <div class="text-xs text-neutral-500 mt-4">2021 - Present</div>
-                </div>
-
-                <!-- Achievement 5 -->
-                <div class="reveal glass-card rounded-2xl p-8 hover-lift group">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500/20 to-rose-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <iconify-icon icon="lucide:heart" width="24" class="text-red-400"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-medium mb-2">Community Builder</h3>
-                    <p class="text-sm text-neutral-400 font-light leading-relaxed">
-                        Founded a developer community with 5,000+ members focused on learning and growth.
-                    </p>
-                    <div class="text-xs text-neutral-500 mt-4">2020</div>
-                </div>
-
-                <!-- Achievement 6 -->
-                <div class="reveal glass-card rounded-2xl p-8 hover-lift group">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-violet-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <iconify-icon icon="lucide:briefcase" width="24" class="text-indigo-400"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-medium mb-2">Fortune 500 Experience</h3>
-                    <p class="text-sm text-neutral-400 font-light leading-relaxed">
-                        Led development teams at top tech companies delivering enterprise-scale solutions.
-                    </p>
-                    <div class="text-xs text-neutral-500 mt-4">2019 - Present</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 px-6 relative">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px]"></div>
-        
-        <div class="max-w-3xl mx-auto text-center relative z-10">
-            <div class="reveal">
-                <span class="text-[10px] font-medium tracking-widest text-blue-400 uppercase">Get in Touch</span>
-                <h2 class="text-3xl md:text-4xl font-medium tracking-tight mt-4 mb-6 gradient-text">
-                    Let's Work Together
-                </h2>
-                <p class="text-neutral-400 font-light mb-10 max-w-xl mx-auto">
-                    I'm always interested in new opportunities, collaborations, or just a friendly chat about technology.
+            <div class="about-text-block">
+                <p class="about-lead">
+                    I'm a passionate developer and designer with a love for creating beautiful, user-centric digital experiences. With a keen eye for detail and a commitment to excellence, I bring ideas to life through clean code and thoughtful design.
                 </p>
+                
+                <div class="about-grid">
+                    <div class="about-col">
+                        <h3>Development</h3>
+                        <p>Building robust and scalable web applications with modern technologies and clean architecture.</p>
+                    </div>
+                    <div class="about-col">
+                        <h3>Design</h3>
+                        <p>Crafting intuitive interfaces and delightful user experiences that prioritize accessibility.</p>
+                    </div>
+                    <div class="about-col">
+                        <h3>Innovation</h3>
+                        <p>Exploring creative solutions to complex problems through research and experimentation.</p>
+                    </div>
+                    <div class="about-col">
+                        <h3>Learning</h3>
+                        <p>Continuously growing and staying updated with the latest industry trends and tools.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section class="section achievements-section">
+            <h2 class="section-title">Achievements</h2>
+            <p class="section-subtitle">Milestones and accomplishments</p>
+
+            <div class="achievements-list">
+                <div class="achievement-item">
+                    <div class="achievement-year">2024</div>
+                    <div class="achievement-content">
+                        <h3>First Place - Hackathon 2024</h3>
+                        <p>Won the annual coding competition with an innovative AI-powered solution that impressed the judges.</p>
+                    </div>
+                </div>
+
+                <div class="achievement-item">
+                    <div class="achievement-year">2023-24</div>
+                    <div class="achievement-content">
+                        <h3>Open Source Contributor</h3>
+                        <p>Contributed to 50+ repositories with over 1,000 commits accepted by the community.</p>
+                    </div>
+                </div>
+
+                <div class="achievement-item">
+                    <div class="achievement-year">2023</div>
+                    <div class="achievement-content">
+                        <h3>Graduated with Honors</h3>
+                        <p>Completed Bachelor's in Computer Science with distinction and top of the class.</p>
+                    </div>
+                </div>
+
+                <div class="achievement-item">
+                    <div class="achievement-year">2024</div>
+                    <div class="achievement-content">
+                        <h3>Top Rated Freelancer</h3>
+                        <p>Achieved 5-star rating on multiple projects with excellent client feedback and reviews.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-                <a href="mailto:hello@johndoe.com" class="px-8 py-3 bg-white text-black text-sm font-medium rounded-full hover:bg-neutral-200 transition-colors duration-300 flex items-center gap-2">
-                    <iconify-icon icon="lucide:mail" width="16"></iconify-icon>
-                    Say Hello
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label">Clients</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1k+</div>
+                    <div class="stat-label">Commits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Years Exp.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Links Section -->
+        <section class="social-section">
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="section-subtitle">Find me on social platforms</p>
+
+            <div class="social-links">
+                <a href="#" class="social-btn github">
+                    <i class="material-icons">code</i>
+                    GitHub
+                </a>
+                <a href="#" class="social-btn linkedin">
+                    <i class="material-icons">business_center</i>
+                    LinkedIn
                 </a>
             </div>
 
-            <!-- Social Links -->
-            <div class="reveal flex items-center justify-center gap-4">
-                <a href="https://linkedin.com" target="_blank" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-neutral-400 hover:text-white hover:border-blue-500/30 hover:bg-blue-500/10 transition-all duration-300 group">
-                    <iconify-icon icon="lucide:linkedin" width="20"></iconify-icon>
-                </a>
-                <a href="https://github.com" target="_blank" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-neutral-400 hover:text-white hover:border-purple-500/30 hover:bg-purple-500/10 transition-all duration-300 group">
-                    <iconify-icon icon="lucide:github" width="20"></iconify-icon>
-                </a>
-                <a href="https://twitter.com" target="_blank" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-neutral-400 hover:text-white hover:border-sky-500/30 hover:bg-sky-500/10 transition-all duration-300 group">
-                    <iconify-icon icon="lucide:twitter" width="20"></iconify-icon>
-                </a>
-                <a href="https://dribbble.com" target="_blank" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-neutral-400 hover:text-white hover:border-pink-500/30 hover:bg-pink-500/10 transition-all duration-300 group">
-                    <iconify-icon icon="lucide:dribbble" width="20"></iconify-icon>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-8 px-6 border-t border-white/5">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="text-xs text-neutral-500">
-                © 2024 John Doe. Crafted with passion.
-            </div>
-            <div class="flex items-center gap-6">
-                <a href="https://linkedin.com" target="_blank" class="text-xs text-neutral-500 hover:text-white transition-colors duration-300">LinkedIn</a>
-                <a href="https://github.com" target="_blank" class="text-xs text-neutral-500 hover:text-white transition-colors duration-300">GitHub</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scroll Reveal Script -->
-    <script>
-        // Intersection Observer for reveal animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+            <p class="social-note">Feel free to reach out for collaborations or just a friendly chat!</p>
+        </section>
+    </div>
 </body>
 </html>
