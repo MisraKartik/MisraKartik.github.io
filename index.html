@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>Kartik Misra — Portfolio</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital@0;1&display=swap" rel="stylesheet">
     <style>
         :root {
             --ft-salmon: #FFF1E5;
@@ -14,15 +14,14 @@
             --ft-black: #33302E;
             --ft-teal: #0D7680;
             --ft-claret: #990F3D;
+            --ft-gold: #B08A3E;
             --ft-grey: #807973;
             --ft-border: #CCC1B7;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -41,10 +40,71 @@
             overflow: hidden;
         }
 
-        /* Hero Section */
+        /* ---------- Masthead ---------- */
+        .masthead {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 14px 40px;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid var(--ft-border);
+            color: var(--ft-grey);
+        }
+        .masthead .mark { color: var(--ft-black); font-weight: 700; }
+        .masthead .issue { font-style: italic; }
+
+        /* ---------- Ticker ---------- */
+        .ticker-wrap {
+            background: var(--ft-black);
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            border-bottom: 1px solid var(--ft-border);
+        }
+        .ticker-wrap::before,
+        .ticker-wrap::after {
+            content: "";
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 30px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .ticker-wrap::before { left: 0; background: linear-gradient(90deg, var(--ft-black), transparent); }
+        .ticker-wrap::after { right: 0; background: linear-gradient(270deg, var(--ft-black), transparent); }
+        .ticker {
+            display: inline-flex;
+            animation: scroll-ticker 32s linear infinite;
+            will-change: transform;
+        }
+        .ticker span {
+            display: inline-flex;
+            align-items: center;
+            padding: 9px 0;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: var(--ft-paper);
+            font-weight: 500;
+        }
+        .ticker span::after {
+            content: "•";
+            color: var(--ft-gold);
+            margin: 0 22px;
+            font-size: 10px;
+        }
+        @keyframes scroll-ticker {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .ticker { animation: none; }
+        }
+
+        /* ---------- Hero ---------- */
         .hero {
             background: var(--ft-paper);
-            padding: 80px 40px 50px;
+            padding: 70px 40px 50px;
             text-align: left;
             border-bottom: 4px solid var(--ft-black);
             position: relative;
@@ -62,10 +122,7 @@
             justify-content: center;
         }
 
-        .hero-avatar i {
-            font-size: 45px;
-            color: var(--ft-black);
-        }
+        .hero-avatar i { font-size: 45px; color: var(--ft-black); }
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
@@ -75,10 +132,26 @@
             margin-bottom: 12px;
             line-height: 1.1;
             letter-spacing: -1px;
+            position: relative;
+            display: inline-block;
         }
 
+        .hero h1::after {
+            content: "";
+            position: absolute;
+            left: 2px;
+            bottom: 6px;
+            width: 0;
+            height: 10px;
+            background: rgba(13,118,128,0.16);
+            z-index: -1;
+            animation: underline-sweep 1.1s ease 0.4s forwards;
+        }
+        @keyframes underline-sweep { to { width: 100%; } }
+
         .hero .tagline {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Source Serif 4', serif;
+            font-style: italic;
             font-size: 20px;
             color: var(--ft-teal);
             font-weight: 400;
@@ -96,11 +169,25 @@
             display: block;
         }
 
-        /* Section Styles */
+        .hero-rule {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 24px;
+            color: var(--ft-grey);
+            font-size: 13px;
+        }
+        .hero-rule .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ft-teal); display: inline-block; }
+
+        /* ---------- Section base ---------- */
         .section {
             padding: 50px 40px;
             border-bottom: 1px solid var(--ft-border);
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
+        .section.is-visible { opacity: 1; transform: translateY(0); }
 
         .section-title {
             font-family: 'Playfair Display', serif;
@@ -119,14 +206,8 @@
             font-weight: 400;
         }
 
-        /* About Section */
-        .about-section {
-            background: var(--ft-paper);
-        }
-
-        .about-text-block {
-            margin-top: 20px;
-        }
+        /* ---------- About ---------- */
+        .about-text-block { margin-top: 20px; }
 
         .about-lead {
             font-family: 'Playfair Display', serif;
@@ -161,38 +242,67 @@
             line-height: 1.6;
         }
 
-        /* Achievements Section */
-        .achievements-section {
-            background: var(--ft-paper);
-        }
-
+        /* ---------- Timeline (Achievements / Academics) ---------- */
         .achievements-list {
-            margin-bottom: 40px;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 26px;
+        }
+        .achievements-list::before {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 8px;
+            bottom: 8px;
+            width: 1px;
+            background: var(--ft-border);
         }
 
         .achievement-item {
             display: flex;
-            gap: 30px;
-            padding: 20px 0;
+            gap: 24px;
+            padding: 18px 0;
             border-bottom: 1px solid var(--ft-border);
+            position: relative;
+            transition: padding-left 0.25s ease, background 0.25s ease;
+        }
+        .achievement-item:first-child { border-top: 1px solid var(--ft-border); }
+
+        .achievement-item::before {
+            content: "";
+            position: absolute;
+            left: -26px;
+            top: 24px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--ft-paper);
+            border: 2px solid var(--ft-teal);
+            transition: background 0.25s ease, transform 0.25s ease;
         }
 
-        .achievement-item:first-child {
-            border-top: 1px solid var(--ft-border);
+        .achievement-item:hover {
+            padding-left: 10px;
+            background: linear-gradient(90deg, rgba(13,118,128,0.05), transparent);
+        }
+        .achievement-item:hover::before {
+            background: var(--ft-teal);
+            transform: scale(1.25);
         }
 
         .achievement-year {
             font-family: 'Inter', sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: var(--ft-claret);
-            min-width: 70px;
+            min-width: 78px;
             padding-top: 3px;
+            letter-spacing: 0.3px;
         }
 
         .achievement-content h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 20px;
+            font-size: 19px;
             color: var(--ft-black);
             margin-bottom: 6px;
             font-weight: 600;
@@ -205,58 +315,51 @@
             line-height: 1.6;
         }
 
+        /* ---------- Stat strip ---------- */
         .stats-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 0;
             border-top: 1px solid var(--ft-border);
             border-bottom: 1px solid var(--ft-border);
-            margin-top: 40px;
+            margin-top: 36px;
         }
 
         .stat-card {
-            padding: 25px 15px;
+            padding: 25px 12px;
             text-align: center;
             border-right: 1px solid var(--ft-border);
         }
-
-        .stat-card:last-child {
-            border-right: none;
-        }
+        .stat-card:last-child { border-right: none; }
 
         .stat-number {
             font-family: 'Playfair Display', serif;
-            font-size: 36px;
+            font-size: 34px;
             font-weight: 700;
             color: var(--ft-teal);
             line-height: 1;
             margin-bottom: 8px;
+            font-variant-numeric: tabular-nums;
         }
 
         .stat-label {
             font-family: 'Inter', sans-serif;
-            font-size: 12px;
+            font-size: 11px;
             color: var(--ft-grey);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        /* Social Links Section */
+        /* ---------- Social ---------- */
         .social-section {
             background: var(--ft-black);
             padding: 60px 40px 70px;
             text-align: center;
             border-bottom: none;
         }
-
-        .social-section .section-title {
-            color: var(--ft-paper);
-        }
-
-        .social-section .section-subtitle {
-            color: rgba(255, 249, 245, 0.7);
-        }
+        .social-section .section-title { color: var(--ft-paper); }
+        .social-section .section-subtitle { color: rgba(255, 249, 245, 0.7); }
 
         .social-links {
             display: flex;
@@ -275,28 +378,19 @@
             font-family: 'Inter', sans-serif;
             font-size: 15px;
             font-weight: 600;
-            transition: all 0.2s ease;
+            transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
             border: 1px solid var(--ft-paper);
+            position: relative;
         }
 
-        .social-btn.github {
-            background: transparent;
-            color: var(--ft-paper);
-        }
+        .social-btn.github { background: transparent; color: var(--ft-paper); }
+        .social-btn.linkedin { background: var(--ft-teal); color: var(--ft-paper); border-color: var(--ft-teal); }
 
-        .social-btn.linkedin {
-            background: var(--ft-teal);
-            color: var(--ft-paper);
-            border-color: var(--ft-teal);
-        }
+        .social-btn:hover { transform: translateY(-3px); }
+        .social-btn.github:hover { background: rgba(255,249,245,0.08); }
+        .social-btn.linkedin:hover { background: #0a5e66; }
 
-        .social-btn:hover {
-            opacity: 0.8;
-        }
-
-        .social-btn i {
-            font-size: 20px;
-        }
+        .social-btn i { font-size: 20px; }
 
         .social-note {
             font-family: 'Inter', sans-serif;
@@ -306,124 +400,95 @@
             font-style: italic;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .hero {
-                padding: 60px 25px 40px;
-            }
-
-            .hero h1 {
-                font-size: 40px;
-            }
-
-            .hero .tagline {
-                font-size: 18px;
-            }
-
-            .section {
-                padding: 40px 25px;
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .achievement-item {
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .achievement-year {
-                min-width: auto;
-            }
-
-            .stats-container {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .stat-card {
-                border-bottom: 1px solid var(--ft-border);
-            }
-
-            .stat-card:nth-child(2n) {
-                border-right: none;
-            }
-
-            .stat-card:nth-last-child(-n+2) {
-                border-bottom: none;
-            }
-
-            .social-links {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .social-btn {
-                width: 100%;
-                justify-content: center;
-                max-width: 320px;
-            }
+        /* ---------- Footer rule ---------- */
+        .colophon {
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: rgba(255,249,245,0.35);
+            padding-top: 36px;
+            text-transform: uppercase;
         }
-        .masthead{
-display:flex;
-justify-content:space-between;
-padding:12px 40px;
-font-size:12px;
-letter-spacing:1px;
-border-bottom:1px solid var(--ft-border);
-}
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 600px) {
+            .masthead { padding: 12px 22px; font-size: 10px; }
+            .hero { padding: 55px 25px 40px; }
+            .hero h1 { font-size: 38px; }
+            .hero .tagline { font-size: 17px; }
+            .section { padding: 38px 25px; }
+            .about-grid { grid-template-columns: 1fr; gap: 20px; }
+            .stats-container { grid-template-columns: 1fr 1fr; }
+            .stat-card { border-bottom: 1px solid var(--ft-border); }
+            .stat-card:nth-child(2n) { border-right: none; }
+            .stat-card:nth-last-child(-n+2) { border-bottom: none; }
+            .social-links { flex-direction: column; align-items: center; }
+            .social-btn { width: 100%; justify-content: center; max-width: 320px; }
+        }
+
+        a:focus-visible, .social-btn:focus-visible {
+            outline: 2px solid var(--ft-teal);
+            outline-offset: 3px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="masthead">
-         <div>KARTIK MISRA</div>
-        <div>STATISTICS · ML · QUANT</div>
-         </header>
+            <div><span class="mark">KARTIK MISRA</span></div>
+            <div class="issue" id="issue-date">STATISTICS · ML · QUANT</div>
+        </header>
+
+        <div class="ticker-wrap">
+            <div class="ticker" id="ticker">
+                <span>STATISTICS</span><span>MACHINE LEARNING</span><span>QUANTITATIVE FINANCE</span><span>TIME SERIES</span><span>IIT KANPUR</span><span>SHAP &amp; CALIBRATION</span><span>STATISTICS</span><span>MACHINE LEARNING</span><span>QUANTITATIVE FINANCE</span><span>TIME SERIES</span><span>IIT KANPUR</span><span>SHAP &amp; CALIBRATION</span>
+            </div>
+        </div>
+
         <!-- Hero Section -->
         <section class="hero">
             <p class="subtitle">Welcome to my portfolio</p>
             <h1>Kartik Misra</h1>
             <p class="tagline">Scholar, Data Analyst</p>
+            <div class="hero-rule"><span class="dot"></span> Kanpur, India · MSc Statistics, IIT Kanpur</div>
         </section>
 
         <!-- About Section -->
         <section class="section about-section">
             <h2 class="section-title">About</h2>
             <p class="section-subtitle">A brief introduction</p>
-            <p> I am a full time statistician, part time mathematician, and an aspiring data analyst. I am based out of Kanpur. I am currently in  3rd semester of my masters, at IIT-Kanpur.</p>
-            
+            <p class="about-lead">I am a full-time statistician, part-time mathematician, and an aspiring data analyst — based out of Kanpur, currently in my 3rd semester of a masters at IIT Kanpur.</p>
         </section>
 
         <!-- Achievements Section -->
         <section class="section achievements-section">
             <h2 class="section-title">Achievements</h2>
+            <p class="section-subtitle">In chronological order</p>
             <div class="achievements-list">
                 <div class="achievement-item">
                     <div class="achievement-year">2026</div>
                     <div class="achievement-content">
-                        <h3>Recipient of Academic Excellance Award</h3>
-                        <p>Won the annual academic excellance award from Department of Statistics, IIT-Kanpur</p>
+                        <h3>Recipient of Academic Excellence Award</h3>
+                        <p>Won the annual academic excellence award from the Department of Statistics, IIT Kanpur</p>
                     </div>
                 </div>
                 <div class="achievement-item">
                     <div class="achievement-year">2025</div>
                     <div class="achievement-content">
-                        <h3>AIR 50 in IIT-JAM MS (Statistics) </h3>
+                        <h3>AIR 50 in IIT-JAM MS (Statistics)</h3>
                     </div>
                 </div>
                 <div class="achievement-item">
                     <div class="achievement-year">2025</div>
                     <div class="achievement-content">
-                        <h3>AIR 62 in IIT-JAM MA (Mathematics) </h3>
+                        <h3>AIR 62 in IIT-JAM MA (Mathematics)</h3>
                     </div>
                 </div>
                 <div class="achievement-item">
-                    <div class="achievement-year">2021-24</div>
+                    <div class="achievement-year">2021–24</div>
                     <div class="achievement-content">
                         <h3>Recipient of Inspire Scholarship</h3>
-                        <p>Received Inspire Scholarship from Department of Science and Technology, Government of India</p>
+                        <p>Received the Inspire Scholarship from the Department of Science and Technology, Government of India</p>
                     </div>
                 </div>
             </div>
@@ -432,22 +497,25 @@ border-bottom:1px solid var(--ft-border);
         <!-- Academic Section -->
         <section class="section achievements-section">
             <h2 class="section-title">Academic Milestones</h2>
+            <p class="section-subtitle">Degrees and standing</p>
             <div class="achievements-list">
                 <div class="achievement-item">
-                    <div class="achievement-year">2025 - Present</div>
+                    <div class="achievement-year">2025 – Present</div>
                     <div class="achievement-content">
-                        <h3>MSc Statistics from IIT-Kanpur</h3>
-                        <p>Current CGPA : 8.7</p>
+                        <h3>MSc Statistics, IIT Kanpur</h3>
+                        <p>Current CGPA: 8.7</p>
                     </div>
                 </div>
                 <div class="achievement-item">
-                    <div class="achievement-year">2021-24</div>
+                    <div class="achievement-year">2021–24</div>
                     <div class="achievement-content">
-                        <h3>BSc Mathematics (Honours) from Delhi University</h3>
-                        <p>CGPA : 8</p>
+                        <h3>BSc Mathematics (Honours), Delhi University</h3>
+                        <p>CGPA: 8.0</p>
                     </div>
                 </div>
             </div>
+
+            
         </section>
 
         <!-- Social Links Section -->
@@ -455,17 +523,84 @@ border-bottom:1px solid var(--ft-border);
             <h2 class="section-title">Let's Connect</h2>
             <p class="section-subtitle">Find me on social platforms</p>
             <div class="social-links">
-                <a href="#https://github.com/MisraKartik" class="social-btn github">
+                <a href="https://github.com/MisraKartik" target="_blank" rel="noopener" class="social-btn github">
                     <i class="material-icons">code</i>
                     GitHub
                 </a>
-                <a href="#https://www.linkedin.com/in/kartik-misra-313235223/" class="social-btn linkedin">
+                <a href="https://www.linkedin.com/in/kartik-misra-313235223/" target="_blank" rel="noopener" class="social-btn linkedin">
                     <i class="material-icons">business_center</i>
                     LinkedIn
                 </a>
             </div>
             <p class="social-note">Feel free to reach out for collaborations or just a friendly chat!</p>
+            <p class="colophon">Kartik Misra · Updated <span id="footer-date"></span></p>
         </section>
     </div>
+
+    <script>
+        // Masthead issue date
+        (function() {
+            var d = new Date();
+            var opts = { year: 'numeric', month: 'short', day: 'numeric' };
+            var formatted = d.toLocaleDateString('en-GB', opts).toUpperCase();
+            document.getElementById('issue-date').textContent = formatted;
+            document.getElementById('footer-date').textContent = d.toLocaleDateString('en-GB', { year: 'numeric', month: 'long' });
+        })();
+
+        // Scroll-triggered section reveal
+        (function() {
+            var sections = document.querySelectorAll('.section');
+            if (!('IntersectionObserver' in window)) {
+                sections.forEach(function(s) { s.classList.add('is-visible'); });
+                return;
+            }
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            sections.forEach(function(s) { observer.observe(s); });
+        })();
+
+        // Animated stat counters
+        (function() {
+            var stats = document.querySelectorAll('.stat-number');
+            var animated = false;
+            function animate(el) {
+                var target = parseFloat(el.getAttribute('data-target'));
+                var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+                var prefix = el.getAttribute('data-prefix') || '';
+                var duration = 900;
+                var startTime = null;
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    var progress = Math.min((timestamp - startTime) / duration, 1);
+                    var eased = 1 - Math.pow(1 - progress, 3);
+                    var value = (target * eased).toFixed(decimals);
+                    el.textContent = prefix + value;
+                    if (progress < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            }
+            if (!('IntersectionObserver' in window)) {
+                stats.forEach(animate);
+                return;
+            }
+            var statObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting && !animated) {
+                        stats.forEach(animate);
+                        animated = true;
+                        statObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.4 });
+            var statsContainer = document.querySelector('.stats-container');
+            if (statsContainer) statObserver.observe(statsContainer);
+        })();
+    </script>
 </body>
 </html>
